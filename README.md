@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CryptoTrace Backend
 
 Cybersecurity-oriented blockchain transaction forensics prototype using FastAPI, PostgreSQL, Neo4j, Redis, RabbitMQ, NetworkX, scikit-learn, PyVis and web3.py.
@@ -126,3 +127,6 @@ docker compose down -v
 ## Before production
 
 Add authentication/authorization, per-user rate limits, secrets management, TLS, provider retry/backoff, Alembic migration review, durable worker orchestration, curated intelligence provenance, immutable/off-host audit backups, observability, and legal/compliance review. Do not expose the development credentials or unauthenticated API publicly.
+=======
+# CodeSpark
+>>>>>>> 4c013dbfb2226ddfc757c819e1ef1e2a7deec8f6
