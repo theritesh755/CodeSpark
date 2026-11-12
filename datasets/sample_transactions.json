@@ -1,0 +1,10 @@
+{
+  "scenario": "synthetic peel-chain and dusting demonstration",
+  "disclaimer": "All addresses and transactions in this dataset are fictional placeholders; this is not evidence of real-world activity.",
+  "transactions": [
+    {"txid":"sample-tx-001","inputs":[{"address":"wallet-source-A","value":100000000}],"outputs":[{"address":"wallet-peel-1","value":85000000},{"address":"wallet-change-A","value":14000000},{"address":"dust-decoy-1","value":1000}],"timestamp":1730000000,"confirmed":true},
+    {"txid":"sample-tx-002","inputs":[{"address":"wallet-peel-1","value":85000000}],"outputs":[{"address":"wallet-peel-2","value":70000000},{"address":"wallet-change-B","value":14900000},{"address":"dust-decoy-2","value":1000}],"timestamp":1730000300,"confirmed":true},
+    {"txid":"sample-tx-003","inputs":[{"address":"wallet-peel-2","value":70000000}],"outputs":[{"address":"mixer-cluster-X","value":68000000},{"address":"wallet-change-C","value":1999000},{"address":"dust-decoy-3","value":1000}],"timestamp":1730000600,"confirmed":true},
+    {"txid":"sample-tx-004","inputs":[{"address":"mixer-cluster-X","value":68000000}],"outputs":[{"address":"candidate-receiver-1","value":30000000},{"address":"candidate-receiver-2","value":37000000},{"address":"mixer-change","value":999000}],"timestamp":1730000900,"confirmed":true}
+  ]
+}

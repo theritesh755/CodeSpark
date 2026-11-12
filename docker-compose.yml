@@ -1,0 +1,73 @@
+services:
+  services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cryptotrace-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cryptotrace
+      POSTGRES_USER: cryptotrace
+      POSTGRES_PASSWORD: "Ritesh@117"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cryptotrace -d cryptotrace"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Keep your existing Neo4j configuration here.
+
+volumes:
+  postgres_data:
+  redis:
+    image: redis:7-alpine
+    container_name: cryptotrace-redis
+    restart: unless-stopped
+    ports: ["6379:6379"]
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [redis_data:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: cryptotrace-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: cryptotrace
+      RABBITMQ_DEFAULT_PASS: cryptotrace_dev
+    ports: ["5672:5672", "15672:15672"]
+    volumes: [rabbitmq_data:/var/lib/rabbitmq]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  neo4j:
+    image: neo4j:5-community
+    container_name: cryptotrace-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/cryptotrace_dev_password
+      NEO4J_server_memory_heap_initial__size: 256m
+      NEO4J_server_memory_heap_max__size: 512m
+    ports: ["7474:7474", "7687:7687"]
+    volumes: [neo4j_data:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+  neo4j_data:

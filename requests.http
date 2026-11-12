@@ -1,0 +1,41 @@
+### Health check
+GET http://127.0.0.1:8000/health
+
+### API root
+GET http://127.0.0.1:8000/
+
+### Run synthetic multi-hop trace (recommended first)
+POST http://127.0.0.1:8000/api/v1/traces
+Content-Type: application/json
+
+{
+  "subject": "bc1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "chain": "bitcoin",
+  "max_hops": 4,
+  "limit": 30,
+  "use_sample": true
+}
+
+### Replace the sample subject with a real Bitcoin address and set use_sample=false
+POST http://127.0.0.1:8000/api/v1/traces
+Content-Type: application/json
+
+{
+  "subject": "REPLACE_WITH_REAL_BTC_ADDRESS",
+  "chain": "bitcoin",
+  "max_hops": 3,
+  "limit": 20,
+  "use_sample": false
+}
+
+### Audit verification
+GET http://127.0.0.1:8000/api/v1/security/audit/verify
+
+### Security capabilities
+GET http://127.0.0.1:8000/api/v1/security/capabilities
+
+### After creating a trace, replace TRACE_ID below
+GET http://127.0.0.1:8000/api/v1/reports/TRACE_ID
+GET http://127.0.0.1:8000/api/v1/graphs/TRACE_ID
+GET http://127.0.0.1:8000/api/v1/risk/TRACE_ID/receivers
+POST http://127.0.0.1:8000/api/v1/graphs/TRACE_ID/visualize
